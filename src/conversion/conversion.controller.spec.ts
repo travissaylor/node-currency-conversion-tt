@@ -15,7 +15,11 @@ describe('ConversionController', () => {
 
   describe('currencyConversion', () => {
     it('should return "currencyConversion"', () => {
-      conversionController.currencyConversion();
+      conversionController.currencyConversion({
+        to: 'USD',
+        from: 'EUR',
+        amount: 100,
+      });
       throw new Error('Test not implemented');
     });
   });

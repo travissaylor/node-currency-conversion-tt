@@ -1,9 +1,26 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
+import { ConversionDto } from './conversion.dto';
 
-@Controller()
+@Controller({ version: '1', path: 'convert' })
 export class ConversionController {
   constructor() {}
 
   @Get()
-  currencyConversion() {}
+  @UsePipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+    }),
+  )
+  currencyConversion(@Query() conversionDto: ConversionDto) {
+    return {
+      conversionDto,
+    };
+  }
 }
