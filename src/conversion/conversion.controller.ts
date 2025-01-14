@@ -16,6 +16,7 @@ export class ConversionController {
     new ValidationPipe({
       transform: true,
       whitelist: true,
+      forbidNonWhitelisted: true,
     }),
   )
   currencyConversion(@Query() conversionDto: ConversionDto) {

@@ -1,11 +1,18 @@
-import { IsString, IsCurrency } from 'class-validator';
+import { IsCurrency, IsEnum } from 'class-validator';
+
+export enum SupportedCurrencies {
+  USD = 'USD',
+  EUR = 'EUR',
+  BTC = 'BTC',
+  ETH = 'ETH',
+}
 
 export class ConversionDto {
-  @IsString()
-  from: string;
+  @IsEnum(SupportedCurrencies)
+  from: SupportedCurrencies;
 
-  @IsString()
-  to: string;
+  @IsEnum(SupportedCurrencies)
+  to: SupportedCurrencies;
 
   @IsCurrency()
   amount: number;
