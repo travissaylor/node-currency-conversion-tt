@@ -3,7 +3,6 @@ import { ConversionModule } from './conversion/conversion.module';
 import { DatabaseModule } from './database/database.module';
 import { PerUserThrottlerGuard } from './common/per-user-throttler.guard';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,10 +12,13 @@ import { AuthModule } from './auth/auth.module';
       {
         name: 'PerUser',
         ttl: 86400000,
-        limit: 100, // this will be dynamically overridden by the guard
+        limit: () => {
+          const now = new Date();
+          const isWeekend = [0, 6].includes(now.getDay());
+          return isWeekend ? 200 : 100;
+        },
       },
     ]),
-    AuthModule,
   ],
   controllers: [],
   providers: [
