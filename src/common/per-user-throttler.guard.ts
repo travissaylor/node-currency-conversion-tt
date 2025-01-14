@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { isValidObjectKey } from 'src/util';
 
@@ -14,17 +14,11 @@ export class PerUserThrottlerGuard extends ThrottlerGuard {
         authorization.length !== 2 ||
         authorization[0].toLowerCase() !== 'bearer'
       ) {
-        throw new HttpException(
-          'Invalid authorization header',
-          HttpStatus.UNAUTHORIZED,
-        );
+        throw new UnauthorizedException('Invalid authorization header');
       }
       return authorization[1];
     }
 
-    throw new HttpException(
-      'Authorization header not found',
-      HttpStatus.UNAUTHORIZED,
-    );
+    throw new UnauthorizedException('Authorization header not found');
   }
 }
