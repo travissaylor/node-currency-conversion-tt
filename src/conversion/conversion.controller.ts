@@ -19,8 +19,6 @@ export class ConversionController {
     }),
   )
   currencyConversion(@Query() conversionDto: ConversionDto) {
-    return {
-      conversionDto,
-    };
+    return conversionDto;
   }
 }

@@ -20,6 +20,7 @@ model User {
 
 model Request {
   id         String   @id @default(uuid())
+  path       String
   parameters String
   body       String
   at         DateTime @default(now())

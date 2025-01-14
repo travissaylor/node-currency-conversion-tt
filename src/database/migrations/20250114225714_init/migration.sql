@@ -10,6 +10,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Request" (
     "id" TEXT NOT NULL PRIMARY KEY,
+    "path" TEXT NOT NULL,
     "parameters" TEXT NOT NULL,
     "body" TEXT NOT NULL,
     "at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP

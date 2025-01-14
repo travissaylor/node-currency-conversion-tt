@@ -4,6 +4,9 @@ import { DatabaseModule } from './database/database.module';
 import { PerUserThrottlerGuard } from './common/per-user-throttler.guard';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthGuard } from './common/auth.guard';
+import { RequestStorageInterceptor } from './common/request-storage.interceptor';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { RequestStorageExceptionFilter } from './common/request-storage-exception.filter';
 
 @Module({
   imports: [
@@ -24,12 +27,20 @@ import { AuthGuard } from './common/auth.guard';
   controllers: [],
   providers: [
     {
-      provide: 'APP_GUARD',
+      provide: APP_GUARD,
       useClass: AuthGuard,
     },
     {
-      provide: 'APP_GUARD',
+      provide: APP_GUARD,
       useClass: PerUserThrottlerGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: RequestStorageInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: RequestStorageExceptionFilter,
     },
   ],
 })
