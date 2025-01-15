@@ -1,4 +1,5 @@
-import { IsCurrency, IsEnum } from 'class-validator';
+import { IsCurrency, IsEnum, IsOptional } from 'class-validator';
+import { SupportedCurrencyExchangeSources } from 'src/currency-sources/currency-source.entity';
 
 export enum SupportedCurrencies {
   USD = 'USD',
@@ -16,4 +17,8 @@ export class ConversionDto {
 
   @IsCurrency()
   amount: number;
+
+  @IsEnum(SupportedCurrencyExchangeSources)
+  @IsOptional()
+  source: SupportedCurrencyExchangeSources;
 }

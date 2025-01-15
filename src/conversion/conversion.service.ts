@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConversionDto } from './conversion.dto';
 import { CurrencySoruceFactory } from 'src/currency-sources/currency-source.factory';
+import { SupportedCurrencyExchangeSources } from 'src/currency-sources/currency-source.entity';
 
 @Injectable()
 export class ConversionService {
@@ -9,8 +10,9 @@ export class ConversionService {
   ) {}
 
   async currencyConversion(conversionDto: ConversionDto) {
-    const source = 'coinbase'; // todo replace with dynamic source
-    const currencySource = this.currencySourceFactory.getCurrencySource(source);
+    const currencySource = this.currencySourceFactory.getCurrencySource(
+      conversionDto.source ?? SupportedCurrencyExchangeSources.COINBASE,
+    );
     return currencySource.exchange(conversionDto);
   }
 }
