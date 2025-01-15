@@ -7,6 +7,7 @@ import { AuthGuard } from './common/auth.guard';
 import { RequestStorageInterceptor } from './common/request-storage.interceptor';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { RequestStorageExceptionFilter } from './common/request-storage-exception.filter';
+import { ConfigModule } from './config/config.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { RequestStorageExceptionFilter } from './common/request-storage-exceptio
         },
       },
     ]),
+    ConfigModule,
   ],
   controllers: [],
   providers: [
