@@ -6,10 +6,11 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ConversionDto } from './conversion.dto';
+import { ConversionService } from './conversion.service';
 
 @Controller({ version: '1', path: 'convert' })
 export class ConversionController {
-  constructor() {}
+  constructor(protected readonly conversionService: ConversionService) {}
 
   @Get()
   @UsePipes(
@@ -19,7 +20,7 @@ export class ConversionController {
       forbidNonWhitelisted: true,
     }),
   )
-  currencyConversion(@Query() conversionDto: ConversionDto) {
-    return conversionDto;
+  async currencyConversion(@Query() conversionDto: ConversionDto) {
+    return await this.conversionService.currencyConversion(conversionDto);
   }
 }

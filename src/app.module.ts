@@ -8,11 +8,13 @@ import { RequestStorageInterceptor } from './common/request-storage.interceptor'
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { RequestStorageExceptionFilter } from './common/request-storage-exception.filter';
 import { ConfigModule } from './config/config.module';
+import { CurrencySourcesModule } from './currency-sources/currency-sources.module';
 
 @Module({
   imports: [
     ConversionModule,
     DatabaseModule,
+    CurrencySourcesModule,
     ThrottlerModule.forRoot([
       {
         name: 'PerUser',
