@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CoinbaseService } from './coinbase/coinbase.service';
 import { SupportedCurrencyExchangeSources } from './currency-source.entity';
 import { RandomCurrencySourceService } from './random/random.service';
+import { assertUnreachable } from 'src/util';
 
 @Injectable()
 export class CurrencySoruceFactory {
@@ -17,7 +18,7 @@ export class CurrencySoruceFactory {
       case SupportedCurrencyExchangeSources.RANDOM:
         return this.randomCurrencySource;
       default:
-        throw new Error('Invalid currency source');
+        assertUnreachable(source);
     }
   }
 }
