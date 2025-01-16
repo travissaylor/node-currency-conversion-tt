@@ -87,6 +87,7 @@
       "!src/**/*.module.ts",
       "!src/**/*.dto.ts",
       "!src/**/*.entity.ts",
+      "!src/**/*seed.ts",
       "!src/**/*.schema.ts"
     ],
     "coverageDirectory": "../coverage",
