@@ -17,7 +17,13 @@ export class RequestStorageExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
     const status =
       exception instanceof HttpException ? exception.getStatus() : 500; // Default to 500 for unknown exceptions
-    const body = exception.getResponse();
+    const body =
+      exception instanceof HttpException
+        ? exception.getResponse()
+        : {
+            statusCode: status,
+            message: 'Internal server error',
+          };
 
     await this.db.request.create({
       data: {
