@@ -56,6 +56,27 @@ npm run test:cov
 
 # Application Details
 
+## Endpoints
+
+Endpoint: `GET /convert`
+Description: Converts a specified amount from one currency to another using real-time exchange rates. Optionally, a source can be specified to choose between supported currency providers.
+Inputs (as Query Parameters):
+
+- `from` (string, required): The source currency. Supported values: USD, EUR, BTC, ETH.
+- `to` (string, required): The target currency. Supported values: USD, EUR, BTC, ETH.
+- `amount` (number, required): The amount to convert.
+- `source` (string, optional): The currency exchange source to use. Supported values:
+  - COINBASE (default): Fetches exchange rates from the Coinbase API.
+  - RANDOM: Generates random exchange rates to demonstrate an alternative provider.
+
+Example Requests:
+
+Default source (Coinbase):
+
+```
+GET /convert?from=USD&to=EUR&amount=100
+```
+
 ## Framework
 
 This application is built using **NestJS**, a powerful and versatile framework for developing scalable server-side applications with Node.js. While the assignment specifies using Node.js with Express, NestJS fully satisfies this requirement as it is built on top of Express (via the `@nestjs/platform-express package`) and seamlessly integrates its capabilities.
@@ -128,7 +149,8 @@ By leveraging the guard abstraction and including these headers, the application
 This application supports multiple currency exchange sources, such as Coinbase and a custom Random Source, to fetch exchange rates for both FIAT and cryptocurrencies. The strategy pattern is used to manage these sources, enabling seamless substitution and extension of exchange rate providers.
 
 Each source implements a common interface, ensuring consistent behavior regardless of the underlying provider. For example:
-* The Coinbase provider fetches real-time exchange rates from the Coinbase API.
-* The Random provider generates random exchange rates, demonstrating how alternative providers can be easily integrated.
+
+- The Coinbase provider fetches real-time exchange rates from the Coinbase API.
+- The Random provider generates random exchange rates, demonstrating how alternative providers can be easily integrated.
 
 The application dynamically selects the appropriate source based on the user’s request, making it easy to add or replace exchange sources without modifying the core business logic. This design ensures flexibility, scalability, and maintainability.
