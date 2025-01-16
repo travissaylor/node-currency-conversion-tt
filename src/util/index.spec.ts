@@ -1,4 +1,4 @@
-import { isValidObject, isValidObjectKey } from '.';
+import { assertUnreachable, isValidObject, isValidObjectKey } from '.';
 
 describe('util', () => {
   it('isValidObject', () => {
@@ -14,5 +14,11 @@ describe('util', () => {
     expect(isValidObjectKey(null, 'foo')).toBe(false);
     expect(isValidObjectKey('foo', 'foo')).toBe(false);
     expect(isValidObjectKey(['foo'], 'foo')).toBe(false);
+  });
+
+  it('assertUnreachable', () => {
+    expect(() => assertUnreachable()).toThrow('Unreachable code assertion failed');
+    // @ts-expect-error
+    expect(() => assertUnreachable('foo')).toThrow('Unreachable code assertion failed');
   });
 });

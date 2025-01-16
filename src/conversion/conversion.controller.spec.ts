@@ -51,32 +51,48 @@ describe('ConversionController', () => {
   });
 
   describe('currencyConversion', () => {
-    it('should return a random number conversion result', async () => {
-      const conversionDto = {
-        source: SupportedCurrencyExchangeSources.RANDOM,
-        from: SupportedCurrencies.BTC,
-        to: SupportedCurrencies.USD,
-        amount: 1,
-      };
+    describe('when the source is RANDOM', () => {
+      it('should return a random number conversion result when specifying RANDOM as source', async () => {
+        const conversionDto = {
+          source: SupportedCurrencyExchangeSources.RANDOM,
+          from: SupportedCurrencies.BTC,
+          to: SupportedCurrencies.USD,
+          amount: 1,
+        };
 
-      const result =
-        await conversionController.currencyConversion(conversionDto);
+        const result =
+          await conversionController.currencyConversion(conversionDto);
 
-      expect(result).toEqual(mockRandomValue);
+        expect(result).toEqual(mockRandomValue);
+      });
     });
+    describe('when the source is COINBASE', () => {
+      it('should return a conversion result from Coinbase wehn specifying COINBASE as source', async () => {
+        const conversionDto = {
+          source: SupportedCurrencyExchangeSources.COINBASE,
+          from: SupportedCurrencies.BTC,
+          to: SupportedCurrencies.USD,
+          amount: 1,
+        };
 
-    it('should return a conversion result from Coinbase', async () => {
-      const conversionDto = {
-        source: SupportedCurrencyExchangeSources.COINBASE,
-        from: SupportedCurrencies.BTC,
-        to: SupportedCurrencies.USD,
-        amount: 1,
-      };
+        const result =
+          await conversionController.currencyConversion(conversionDto);
 
-      const result =
-        await conversionController.currencyConversion(conversionDto);
+        expect(result).toEqual(1);
+      });
+      it('should return a conversion result from Coinbase wehn not specifying a source', async () => {
+        const conversionDto = {
+          source: SupportedCurrencyExchangeSources.COINBASE,
+          from: SupportedCurrencies.BTC,
+          to: SupportedCurrencies.USD,
+          amount: 1,
+        };
 
-      expect(result).toEqual(1);
+        const result =
+          await conversionController.currencyConversion(conversionDto);
+
+        expect(result).toEqual(1);
+      });
     });
   });
 });
