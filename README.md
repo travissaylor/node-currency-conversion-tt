@@ -29,12 +29,10 @@ Supply the Api Key secret to the `COINBASE_KEY_SECRET` env var in the .env. Ensu
 ## Database setup
 
 ```
-npx prisma migrate reset
+npm run db:init
 ```
 
-When it says `Are you sure you want to reset your database? All data will be lost.`, ensure you input `y` to set the database up
-
-This will creatge 2 files in the `src/database` directory: `dev.db` & `dev.db-journal`. `dev.db` is a sqlite database that will be used by the application
+This will create a `dev.db` file which is a sqlite database that will be used by the application. It will also seed the database with a sample user.
 
 # Runnig the App
 
@@ -124,3 +122,13 @@ To provide transparency, the application includes rate limit details in the resp
 - `X-RateLimit-Reset-PerUser`: Specifies the time (in milliseconds) when the rate limit will reset.
 
 By leveraging the guard abstraction and including these headers, the application maintains system stability, provides a fair experience for all users, and offers clear feedback on rate limit status.
+
+## Currency Exchange Providers
+
+This application supports multiple currency exchange sources, such as Coinbase and a custom Random Source, to fetch exchange rates for both FIAT and cryptocurrencies. The strategy pattern is used to manage these sources, enabling seamless substitution and extension of exchange rate providers.
+
+Each source implements a common interface, ensuring consistent behavior regardless of the underlying provider. For example:
+* The Coinbase provider fetches real-time exchange rates from the Coinbase API.
+* The Random provider generates random exchange rates, demonstrating how alternative providers can be easily integrated.
+
+The application dynamically selects the appropriate source based on the user’s request, making it easy to add or replace exchange sources without modifying the core business logic. This design ensures flexibility, scalability, and maintainability.
