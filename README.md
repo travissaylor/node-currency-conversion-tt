@@ -44,6 +44,12 @@ npm run start
 npm run start:dev
 ```
 
+The application will run on port `3000` by default
+
+```
+http://localhost:3000
+```
+
 # Running tests
 
 ```
